@@ -31,8 +31,9 @@
                 <table class="table table-striped table-bordered">
                     <tr>
                         <th>BookName</th>
+                        <th>Author First Name</th>
+                        <th>Author Last Name</th>
                         <th>Genre</th>
-                        <th>AuthorID</th>
                         <th>Numb.books</th>
                         <th>Numb.pages</th>
                         <th>Ratings</th>
@@ -52,8 +53,9 @@
 
                         <tr>
                             <td>${tempBook.bookName}</td>
-                            <td>${tempBook.genre}</td>
-                            <td>${tempBook.authorId}</td>
+                            <td>${tempBook.authorById.firstName}</td>
+                            <td>${tempBook.authorById.lastName}</td>
+                            <td>${tempBook.genre}</
                             <td>${tempBook.count}</td>
                             <td>${tempBook.pageCount}</td>
                             <td>${tempBook.ratings}</td>

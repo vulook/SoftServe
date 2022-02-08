@@ -37,16 +37,23 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="genre" class="col-md-3 control-label">Genre</label>
+                        <label for="authorById.firstName" class="col-md-3 control-label">Author First Name</label>
                         <div class="col-md-9">
-                            <form:input path="genre" cssClass="form-control"/>
+                            <form:input path="authorById.firstName" cssClass="form-control"/>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="authorId" class="col-md-3 control-label">Author ID</label>
+                        <label for="authorById.lastName" class="col-md-3 control-label">Author Last Name</label>
                         <div class="col-md-9">
-                            <form:input path="authorId" cssClass="form-control"/>
+                            <form:input path="authorById.lastName" cssClass="form-control"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="genre" class="col-md-3 control-label">Genre</label>
+                        <div class="col-md-9">
+                            <form:input path="genre" cssClass="form-control"/>
                         </div>
                     </div>
 
