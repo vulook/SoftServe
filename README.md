@@ -1,6 +1,6 @@
 # SoftServe
 
-Тестовий проект LibrraryDB
+Тестовий проект LibrraryDB.
 
 Після pull проекту = > зробити mvn clean install.
 
