@@ -55,14 +55,14 @@
                             <td>${tempBook.bookName}</td>
                             <td>${tempBook.authorById.firstName}</td>
                             <td>${tempBook.authorById.lastName}</td>
-                            <td>${tempBook.genre}</
+                            <td>${tempBook.genre}</td>
                             <td>${tempBook.count}</td>
                             <td>${tempBook.pageCount}</td>
                             <td>${tempBook.ratings}</td>
                             <td>
 
                                 <a href="${updateLink}">Update</a> | <a href="${deleteLink}"
-                                                                        onclick="if (!(confirm('Are you sure you want to delete this customer?'))) return false">Delete</a>
+                                                                        onclick="if (!(confirm('Are you sure you want to delete this fucking BOOK?'))) return false">Delete</a>
                             </td>
                         </tr>
                     </c:forEach>

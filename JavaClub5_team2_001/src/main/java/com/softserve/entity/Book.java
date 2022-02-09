@@ -8,6 +8,9 @@ import javax.persistence.*;
 import java.util.Collection;
 import java.util.Set;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -26,6 +29,7 @@ public class Book {
     private Integer ratings;
 
     @ManyToOne
+    @Cascade(CascadeType.SAVE_UPDATE)
     @JoinColumn(name = "AuthorID", referencedColumnName = "ID")
     private Author authorById;
 
