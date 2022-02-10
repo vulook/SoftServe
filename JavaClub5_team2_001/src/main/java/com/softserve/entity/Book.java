@@ -3,13 +3,12 @@ package com.softserve.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Set;
-
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 
 @Entity
 @Data
@@ -29,7 +28,7 @@ public class Book {
     private Integer ratings;
 
     @ManyToOne
-    @Cascade(CascadeType.SAVE_UPDATE)
+    @Cascade({CascadeType.SAVE_UPDATE})
     @JoinColumn(name = "AuthorID", referencedColumnName = "ID")
     private Author authorById;
 

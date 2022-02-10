@@ -11,8 +11,8 @@ public interface BookService {
 
     void saveBook(Book theBook);
 
-    Book getBook(long theId) throws ResourceNotFoundException;
+    Book getBook(long id) throws ResourceNotFoundException;
 
-    void deleteBook(long theId) throws ResourceNotFoundException;
+    void deleteBook(Book theBook) throws ResourceNotFoundException;
 
 }

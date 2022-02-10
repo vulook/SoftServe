@@ -8,6 +8,9 @@ import javax.persistence.*;
 import java.util.Collection;
 import java.util.Set;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -29,6 +32,10 @@ public class Author {
     private Set<Book> books;
 
     @OneToMany(mappedBy = "authorById")
+    @Cascade({CascadeType.SAVE_UPDATE})
     private Collection<Book> authorById;
 
 }
+
+
+  

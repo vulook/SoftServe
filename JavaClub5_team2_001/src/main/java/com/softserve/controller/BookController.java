@@ -59,9 +59,9 @@ public class BookController {
     }
 
     @GetMapping("/delete")
-    public String deleteBook(@RequestParam("bookID") long theId) throws ResourceNotFoundException {
+    public String deleteBook(@RequestParam("book") Book theBook) throws ResourceNotFoundException {
         LOG.debug("Delete Book handler method");
-        bookService.deleteBook(theId);
+        bookService.deleteBook(theBook);
         return "redirect:/book/list";
     }
 
