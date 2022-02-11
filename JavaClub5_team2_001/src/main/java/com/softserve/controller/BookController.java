@@ -29,7 +29,6 @@ public class BookController {
         theModel.addAttribute("books", theBooks);
         return "list-books";
     }
-
     @GetMapping("/showForm")
     public String showFormForAdd(Model theModel) {
         LOG.debug("Inside show book-form handler method");
@@ -53,19 +52,16 @@ public class BookController {
         theModel.addAttribute("book", theBook);
         return "book-form";
     }
-
     @GetMapping("/delete/{id}")
-    public String deleteBook(@PathVariable long id) {
+    public String deleteBook(@PathVariable long id)  {
         LOG.debug("Delete Book handler method");
         bookService.delete(id);
         return "redirect:/book/list";
     }
-
     @GetMapping("/delete-copy/{id}")
-    public String deleteOneBook(@PathVariable long id) {
+    public String deleteOneBook(@PathVariable long id)  {
         LOG.debug("Delete Book handler method");
         bookService.deleteCopy(id);
         return "redirect:/book/list";
     }
-
 }

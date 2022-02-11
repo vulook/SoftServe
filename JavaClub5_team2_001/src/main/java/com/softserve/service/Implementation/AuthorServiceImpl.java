@@ -31,7 +31,6 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public List<Author> findAll() {
-        return authorDao.getAll();
+        return  authorDao.getAll();
     }
-
 }

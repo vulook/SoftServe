@@ -13,14 +13,14 @@ import java.util.List;
 @Transactional
 @Repository
 public class AuthorDaoImpl implements AuthorDao {
-	
+
     @Autowired
     SessionFactory sessionFactory;
 
     @Override
     @SuppressWarnings("unchecked")
     public List<Author> getAll() {
-        return  sessionFactory.getCurrentSession().createQuery("from Author").getResultList();
+        return sessionFactory.getCurrentSession().createQuery("from Author").getResultList();
     }
 
     @Override
@@ -33,9 +33,10 @@ public class AuthorDaoImpl implements AuthorDao {
     public Author delete(long id) {
         Author author = getByID(id);
         Query query = sessionFactory.getCurrentSession().createSQLQuery("call deleteAuthor(:id)");
-        query.setParameter("id",id);
+        query.setParameter("id", id);
         query.executeUpdate();
         return author;
+
     }
 
     @Override

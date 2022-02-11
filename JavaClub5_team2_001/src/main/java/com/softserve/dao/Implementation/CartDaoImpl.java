@@ -21,13 +21,19 @@ public class CartDaoImpl implements CartDao {
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<Cart> getAll() {
+    public List<Cart> getAllByUser() {
         User user = new User();
         Query query = sessionFactory.getCurrentSession().createSQLQuery("call getID()").addEntity(User.class);
         user = (User) query.getResultList().stream().findFirst().orElse(null);
         Query query1 = sessionFactory.getCurrentSession().createQuery("select c from Cart c where c.CartUser.id=:id", Cart.class);
         query1.setParameter("id", user.getId());
         return query1.getResultList();
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<Cart> getAll() {
+        return sessionFactory.getCurrentSession().createQuery("from Cart").getResultList();
     }
 
     @Override

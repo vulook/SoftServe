@@ -15,5 +15,6 @@ public interface BookDao {
     Book deleteCopy(long id);
 
     Book getByID(long id);
+//    T update(T t);
 
 }

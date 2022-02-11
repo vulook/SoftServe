@@ -5,7 +5,7 @@ import com.softserve.entity.Author;
 import java.util.List;
 
 public interface AuthorDao {
-	
+
     List<Author> getAll();
 
     Author save(Author t);
@@ -13,5 +13,5 @@ public interface AuthorDao {
     Author delete(long id);
 
     Author getByID(long id);
-	
+
 }

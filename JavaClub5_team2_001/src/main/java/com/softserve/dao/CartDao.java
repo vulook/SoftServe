@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface CartDao {
 
+    List<Cart> getAllByUser();
+
     List<Cart> getAll();
 
     Cart save(Cart t);

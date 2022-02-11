@@ -27,6 +27,7 @@ public class BookDaoImpl implements BookDao {
         return book;
     }
 
+
     @Override
     @SuppressWarnings("unchecked")
     public List<Book> getAll() {

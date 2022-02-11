@@ -1,6 +1,5 @@
 package com.softserve.service;
 
-import com.softserve.entity.Book;
 import com.softserve.entity.Cart;
 
 import java.util.List;
@@ -8,8 +7,7 @@ import java.util.List;
 public interface CartService {
 
     Cart create(Cart book);
-
-    //
+//
 //    Book read(Long id);
 //
     Cart findByID(Long id);
@@ -18,6 +16,8 @@ public interface CartService {
 
     void request(Long id);
 
-    List<Cart> findAll();
+    List<Cart> getAll();
+
+    List<Cart> findAllByID();
 
 }

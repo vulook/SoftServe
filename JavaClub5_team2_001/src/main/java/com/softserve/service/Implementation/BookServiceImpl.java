@@ -40,5 +40,4 @@ public class BookServiceImpl implements BookService {
     public List<Book> findAll() {
         return bookDao.getAll();
     }
-
 }
