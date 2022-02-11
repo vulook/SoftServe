@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Date;
 import java.util.List;
 
-
 @Controller
 public class CartController {
 
@@ -33,6 +32,7 @@ public class CartController {
         theModel.addAttribute("carts", theCarts);
         return "list-carts";
     }
+
     @GetMapping("/carts")
     public String allCarts(Model theModel) {
         LOG.debug("Show Carts handler method");
@@ -40,6 +40,7 @@ public class CartController {
         theModel.addAttribute("carts", theCarts);
         return "all-carts";
     }
+
     @GetMapping("/cart/showForm")
     public String showFormForAdd(Model theModel) {
         LOG.debug("Inside show cart-form handler method");
@@ -63,18 +64,21 @@ public class CartController {
         theModel.addAttribute("cart", theCart);
         return "cart-form";
     }
+
     @GetMapping("/cart/delete/{id}")
     public String deleteCart(@PathVariable long id)  {
         LOG.debug("Delete Cart handler method");
         cartService.delete(id);
         return "redirect:/cart/list";
     }
+
     @GetMapping("/carts/delete/{id}")
     public String deleteCarts(@PathVariable long id)  {
         LOG.debug("Delete Cart handler method");
         cartService.delete(id);
         return "redirect:/carts";
     }
+
     @GetMapping("/cart/add/{id}")
     public String addCart(@PathVariable long id)  {
         LOG.debug("Delete Cart handler method");

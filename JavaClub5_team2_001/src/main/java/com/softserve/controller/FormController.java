@@ -2,7 +2,6 @@ package com.softserve.controller;
 
 import com.softserve.entity.Cart;
 import com.softserve.entity.Form;
-import com.softserve.entity.Form;
 import com.softserve.service.CartService;
 import com.softserve.service.FormService;
 import org.slf4j.Logger;
@@ -21,8 +20,10 @@ public class FormController {
 
     @Autowired
     FormService formService;
+
     @Autowired
     CartService cartService;
+
     @GetMapping("/form/list")
     public String listForms(Model theModel) {
         LOG.debug("Show Forms handler method");
@@ -30,6 +31,7 @@ public class FormController {
         theModel.addAttribute("forms", theForms);
         return "list-forms";
     }
+
     @GetMapping("/forms")
     public String allForms(Model theModel) {
         LOG.debug("Show Forms handler method");
@@ -37,6 +39,7 @@ public class FormController {
         theModel.addAttribute("forms", theForms);
         return "all-forms";
     }
+
 //    @GetMapping("/forms/showForm")
 //    public String showFormForAdd(Model theModel) {
 //        LOG.debug("Inside show form-form handler method");
@@ -51,8 +54,6 @@ public class FormController {
         formService.create(theForm);
         return "redirect:/forms";
     }
-
-
 
     @GetMapping("/forms/delete/{id}")
     public String deleteForms(@PathVariable long id)  {
@@ -75,6 +76,7 @@ public class FormController {
         theModel.addAttribute("form", theForm);
         return "form-form";
     }
+
     @GetMapping("/forms/updateForm")
     public String showFormForUpdate(@RequestParam("formID") long theId,
                                     Model theModel) {
@@ -83,4 +85,5 @@ public class FormController {
         theModel.addAttribute("form", theForm);
         return "form-form";
     }
+
 }

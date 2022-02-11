@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
 @Controller
 @RequestMapping("/author")
 public class AuthorController {
@@ -29,6 +28,7 @@ public class AuthorController {
         theModel.addAttribute("authors", theAuthors);
         return "list-authors";
     }
+
 //    @GetMapping("/showForm")
 //    public String showFormForAdd(Model theModel) {
 //        LOG.debug("Inside show book-form handler method");
@@ -52,10 +52,12 @@ public class AuthorController {
         theModel.addAttribute("author", theAuthor);
         return "author-form";
     }
+
     @GetMapping("/delete/{id}")
     public String deleteAuthor(@PathVariable long id)  {
         LOG.debug("Delete Book handler method");
         authorService.delete(id);
         return "redirect:/author/list";
     }
+
 }
