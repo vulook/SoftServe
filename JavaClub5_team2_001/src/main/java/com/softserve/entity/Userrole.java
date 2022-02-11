@@ -1,25 +1,30 @@
 package com.softserve.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
-@Table(name = "userrole", schema = "librarydb")
-public class Userrole {
-
+@ToString(of = "id")
+@EqualsAndHashCode(of = "id")
+@Table(name = "UserRole")
+public class UserRole {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @GeneratedValue
+    @Column(name = "ID")
     private int id;
+    @Basic
+    @Column(name = "Role")
     private String role;
+    @OneToMany(mappedBy = "role")
+    private List<User> users;
 
-    @OneToMany(mappedBy = "userroleByUserRoleId")
-    private Collection<User> usersById;
 
 }

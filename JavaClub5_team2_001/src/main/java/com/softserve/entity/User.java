@@ -1,40 +1,53 @@
 package com.softserve.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.Collection;
-
+import java.util.LinkedList;
+import java.util.List;
+@ToString(of = "id")
+@EqualsAndHashCode(of = "id")
 @Entity
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
-@Table(name = "user", schema = "librarydb")
+@Table(name = "User")
 public class User {
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @GeneratedValue
+    @Column(name = "ID")
     private long id;
+
+    @Column(name = "FirstName")
     private String firstName;
+
+    @Column(name = "LastName")
     private String lastName;
+
+    @Column(name = "Age")
     private String age;
-//    private int userRoleId;
+
+
+    @Column(name = "Phone")
     private String phone;
+
+    @Column(name = "Email")
     private String email;
+
+    @Column(name = "Password")
     private String password;
+
+    @Column(name = "RegDate")
     private Date regDate;
-
-    @OneToMany(mappedBy = "userByUserId")
-    private Collection<Cart> cartsById;
-
-    @OneToMany(mappedBy = "userByUserId")
-    private Collection<Form> formsById;
-
     @ManyToOne
-    @JoinColumn(name = "UserRoleID", referencedColumnName = "ID", nullable = false)
-    private Userrole userroleByUserRoleId;
-
+    @JoinColumn(name = "UserRoleId")
+    private UserRole role;
+    @Setter(AccessLevel.PRIVATE)
+    @OneToMany(mappedBy = "CartUser")
+    private List<Cart> cartList = new LinkedList<>();
+    @Setter(AccessLevel.PRIVATE)
+    @OneToMany(mappedBy = "FormUser")
+    private List<Form> formList = new LinkedList<>();
 }

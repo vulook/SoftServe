@@ -1,18 +1,27 @@
 package com.softserve.service;
 
-import java.util.List;
-
 import com.softserve.entity.Book;
-import com.softserve.exceptions.ResourceNotFoundException;
+
+import java.util.List;
 
 public interface BookService {
 
-    List<Book> getBooks();
+    Book create(Book book);
 
-    void saveBook(Book theBook);
+    //
+//    Book read(Long id);
+//
+    Book findByID(Long id);
 
-    Book getBook(long id) throws ResourceNotFoundException;
+    Book delete(Long id);
 
-    void deleteBook(Book theBook) throws ResourceNotFoundException;
+    Book deleteCopy(Long id);
 
+    List<Book> findAll();
+//
+//    Book findByAuthorID(Long id);
+//
+//    Book findByRatings(Long id);
+//
+//    Book findNumberOfBooks(Long id);
 }

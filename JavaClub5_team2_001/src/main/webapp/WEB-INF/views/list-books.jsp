@@ -45,23 +45,25 @@
                         <c:url var="updateLink" value="/book/updateForm">
                             <c:param name="bookID" value="${tempBook.id}"/>
                         </c:url>
+                        <c:url var="takeLink" value="/cart/add/${tempBook.id}">
+<%--                            <c:param name="bookID" value="${tempBook.id}"/>--%>
+                        </c:url>
 
-
-                        <c:url var="deleteLink" value="/book/delete">
-                            <c:param name="bookID" value="${tempBook.id}"/>
+                        <c:url var="deleteLink" value="/book/delete/${tempBook.id}">
+<%--                            <c:param name="bookID" value="${tempBook.id}"/>--%>
                         </c:url>
 
                         <tr>
                             <td>${tempBook.bookName}</td>
-                            <td>${tempBook.authorById.firstName}</td>
-                            <td>${tempBook.authorById.lastName}</td>
+                            <td>${tempBook.mainAuthor.firstName}</td>
+                            <td>${tempBook.mainAuthor.lastName}</td>
                             <td>${tempBook.genre}</td>
                             <td>${tempBook.count}</td>
                             <td>${tempBook.pageCount}</td>
                             <td>${tempBook.ratings}</td>
                             <td>
 
-                                <a href="${updateLink}">Update</a> | <a href="${deleteLink}"
+                                <a href="${updateLink}">Update</a> | <a href="${takeLink}">Take</a> | <a href="${deleteLink}"
                                                                         onclick="if (!(confirm('Are you sure you want to delete this fucking BOOK?'))) return false">Delete</a>
                             </td>
                         </tr>

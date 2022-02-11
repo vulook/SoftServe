@@ -1,34 +1,46 @@
 package com.softserve.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "form", schema = "librarydb")
+@NoArgsConstructor
+@ToString(of = "id")
+@EqualsAndHashCode(of = "id")
+@Table(name = "Form")
 public class Form {
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @GeneratedValue
+    @Column(name = "ID")
     private long id;
+
+//    @Column(name = "UserID")
 //    private Long userId;
+//
+//    @Column(name = "BookID")
 //    private long bookId;
+
+    @Column(name = "StartDate")
     private Date startDate;
+
+    @Column(name = "ReturnDate")
     private Date returnDate;
+
+    @Column(name = "BookReturned")
     private Date bookReturned;
 
     @ManyToOne
-    @JoinColumn(name = "UserID", referencedColumnName = "ID")
-    private User userByUserId;
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @JoinColumn(name = "BookID")
+    private Book FormBook;
 
     @ManyToOne
-    @JoinColumn(name = "BookID", referencedColumnName = "ID")
-    private Book bookByBookId;
-
+//    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @JoinColumn(name = "UserID")
+    private User FormUser;
 }

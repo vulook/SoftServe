@@ -1,44 +1,66 @@
 package com.softserve.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.*;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
+import org.hibernate.sql.Insert;
+import org.springframework.data.annotation.ReadOnlyProperty;
+import org.springframework.web.bind.annotation.Mapping;
+
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.Set;
+import java.util.*;
 
-@Entity
-@Data
-@NoArgsConstructor
+@Setter
+@Getter
 @AllArgsConstructor
-@Table(name = "book", schema = "librarydb")
+@NoArgsConstructor
+@EqualsAndHashCode(of = "id")
+@ToString(of = "id")
+@Entity
+@Table(name = "Book")
 public class Book {
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @GeneratedValue
+    @Column(name = "ID")
     private long id;
+
+    @Column(name = "BookName")
     private String bookName;
+
+    @Column(name = "Genre")
     private String genre;
-    private long authorId;
+
+//    @Column(name = "AuthorID")
+//    private long authorId;
+
+    @Column(name = "Count")
     private int count;
+    @Column(name = "PageCount")
     private int pageCount;
+
+    @Column(name = "Ratings")
     private Integer ratings;
 
     @ManyToOne
-    @Cascade({CascadeType.SAVE_UPDATE})
-    @JoinColumn(name = "AuthorID", referencedColumnName = "ID")
-    private Author authorById;
+    @ReadOnlyProperty//    @Cascade(CascadeType.ALL)
+    @JoinColumn(name = "AuthorID")
+    private Author mainAuthor;
 
-    @OneToMany(mappedBy = "bookByBookId")
-    private Collection<Cart> cartsById;
-
-    @OneToMany(mappedBy = "bookByBookId")
-    private Collection<Form> formsById;
-
-    @ManyToMany(mappedBy = "books")
-    private Set<Author> authors;
-
+    @Setter(AccessLevel.PRIVATE)
+    @ManyToMany
+    @Cascade(CascadeType.ALL)
+    @JoinTable(name = "coauthor",
+            joinColumns = @JoinColumn(name = "BookID"),
+            inverseJoinColumns = @JoinColumn(name = "AuthorID")
+    )
+    private Set<Author> co_authors = new HashSet<>();
+//    @OneToMany(mappedBy = "CartBook")
+//    @Cascade(CascadeType.ALL)
+//    private List<Cart> cartList = new LinkedList<>();
+//
+//    @OneToMany(mappedBy = "FormBook")
+//    @Cascade(CascadeType.ALL)
+//    private List<Form> formList = new LinkedList<>();
 }

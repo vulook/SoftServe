@@ -1,26 +1,19 @@
 package com.softserve.dao;
 
-import java.util.List;
-import java.util.Optional;
-import javax.transaction.Transactional;
-
-import org.springframework.stereotype.Repository;
 import com.softserve.entity.Book;
 
-@Transactional
-@Repository
-public interface BookDAO {
+import java.util.List;
 
-    Optional<Book> getID(long id);
+public interface BookDao {
 
-    @SuppressWarnings("unchecked")
     List<Book> getAll();
 
-    void save(Book book);
+    Book save(Book t);
 
-    void update(Book book, String[] params);
+    Book delete(long id);
 
-    void delete(Book book);
+    Book deleteCopy(long id);
+
+    Book getByID(long id);
 
 }
-

@@ -2,20 +2,16 @@ package com.softserve.controller;
 
 import java.util.List;
 
+import com.softserve.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.softserve.entity.Book;
-import com.softserve.service.BookService;
-import com.softserve.exceptions.ResourceNotFoundException;
+
 
 @Controller
 @RequestMapping("/book")
@@ -29,7 +25,7 @@ public class BookController {
     @GetMapping("/list")
     public String listBooks(Model theModel) {
         LOG.debug("Show Books handler method");
-        List<Book> theBooks = bookService.getBooks();
+        List<Book> theBooks = bookService.findAll();
         theModel.addAttribute("books", theBooks);
         return "list-books";
     }
@@ -45,23 +41,30 @@ public class BookController {
     @PostMapping("/saveBook")
     public String saveBook(@ModelAttribute("book") Book theBook) {
         LOG.debug("Save Book handler method");
-        bookService.saveBook(theBook);
+        bookService.create(theBook);
         return "redirect:/book/list";
     }
 
     @GetMapping("/updateForm")
     public String showFormForUpdate(@RequestParam("bookID") long theId,
-                                    Model theModel) throws ResourceNotFoundException {
+                                    Model theModel) {
         LOG.debug("Update Book handler method");
-        Book theBook = bookService.getBook(theId);
+        Book theBook = bookService.findByID(theId);
         theModel.addAttribute("book", theBook);
         return "book-form";
     }
 
-    @GetMapping("/delete")
-    public String deleteBook(@RequestParam("book") Book theBook) throws ResourceNotFoundException {
+    @GetMapping("/delete/{id}")
+    public String deleteBook(@PathVariable long id) {
         LOG.debug("Delete Book handler method");
-        bookService.deleteBook(theBook);
+        bookService.delete(id);
+        return "redirect:/book/list";
+    }
+
+    @GetMapping("/delete-copy/{id}")
+    public String deleteOneBook(@PathVariable long id) {
+        LOG.debug("Delete Book handler method");
+        bookService.deleteCopy(id);
         return "redirect:/book/list";
     }
 

@@ -5,16 +5,16 @@ import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 import org.apache.commons.dbcp2.BasicDataSource;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
-import org.springframework.orm.jpa.JpaTransactionManager;
-import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
-import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.orm.hibernate5.HibernateTransactionManager;
+import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 
@@ -37,28 +37,12 @@ public class DBConfig {
     }
 
     @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean() {
-        final LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
-        factoryBean.setDataSource(defaultDataSource());
-        factoryBean.setPackagesToScan("com.softserve.entity");
-        final HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-        vendorAdapter.setShowSql(true);
-        vendorAdapter.setGenerateDdl(true);
-        factoryBean.setJpaVendorAdapter(vendorAdapter);
-        factoryBean.setJpaProperties(hibernateProperties());
-        return factoryBean;
-    }
-
-    @Bean
-    public PlatformTransactionManager transactionManager() {
-        final JpaTransactionManager transactionManager = new JpaTransactionManager();
-        transactionManager.setEntityManagerFactory(entityManagerFactoryBean().getObject());
-        return transactionManager;
-    }
-
-    @Bean
-    public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
-        return new PersistenceExceptionTranslationPostProcessor();
+    public LocalSessionFactoryBean sessionFactory() {
+        LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
+        sessionFactory.setDataSource(defaultDataSource());
+        sessionFactory.setPackagesToScan("com.softserve.entity");
+        sessionFactory.setHibernateProperties(hibernateProperties());
+        return sessionFactory;
     }
 
     private Properties hibernateProperties() {
@@ -72,6 +56,19 @@ public class DBConfig {
         properties.put("hibernate.cache.use_query_cache", env.getRequiredProperty("hibernate.cache.use_query_cache"));
         properties.put("hibernate.globally_quoted_identifiers", env.getRequiredProperty("hibernate.globally_quoted_identifiers"));
         return properties;
+    }
+
+    @Bean
+    @Autowired
+    public HibernateTransactionManager transactionManager(SessionFactory sessionFactory) {
+        HibernateTransactionManager txManager = new HibernateTransactionManager();
+        txManager.setSessionFactory(sessionFactory);
+        return txManager;
+    }
+
+    @Bean
+    public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
+        return new PersistenceExceptionTranslationPostProcessor();
     }
 
 }

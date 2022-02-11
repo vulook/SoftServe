@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
 <!DOCTYPE html>
@@ -37,16 +37,16 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="authorById.firstName" class="col-md-3 control-label">Author First Name</label>
+                        <label for="mainAuthor.firstName" class="col-md-3 control-label">Author First Name</label>
                         <div class="col-md-9">
-                            <form:input path="authorById.firstName" cssClass="form-control"/>
+                            <form:input path="mainAuthor.firstName" cssClass="form-control"/>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="authorById.lastName" class="col-md-3 control-label">Author Last Name</label>
+                        <label for="mainAuthor.lastName" class="col-md-3 control-label">Author Last Name</label>
                         <div class="col-md-9">
-                            <form:input path="authorById.lastName" cssClass="form-control"/>
+                            <form:input path="mainAuthor.lastName" cssClass="form-control"/>
                         </div>
                     </div>
 
