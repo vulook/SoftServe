@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
 @Controller
 @RequestMapping("/author")
 public class AuthorController {
@@ -45,8 +46,7 @@ public class AuthorController {
     }
 
     @GetMapping("/updateForm")
-    public String showFormForUpdate(@RequestParam("authorID") long theId,
-                                    Model theModel) {
+    public String showFormForUpdate(@RequestParam("authorID") long theId, Model theModel) {
         LOG.debug("Update Book handler method");
         Author theAuthor = authorService.read(theId);
         theModel.addAttribute("author", theAuthor);
@@ -54,7 +54,7 @@ public class AuthorController {
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteAuthor(@PathVariable long id)  {
+    public String deleteAuthor(@PathVariable long id) {
         LOG.debug("Delete Book handler method");
         authorService.delete(id);
         return "redirect:/author/list";

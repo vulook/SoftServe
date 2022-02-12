@@ -1,6 +1,6 @@
 package com.softserve.dao.Implementation;
 
-import com.softserve.dao.AuthorDao;
+import com.softserve.dao.AuthorDao;;
 import com.softserve.entity.Author;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,6 @@ public class AuthorDaoImpl implements AuthorDao {
     SessionFactory sessionFactory;
 
     @Override
-    @SuppressWarnings("unchecked")
     public List<Author> getAll() {
         return sessionFactory.getCurrentSession().createQuery("from Author").getResultList();
     }
@@ -36,7 +35,6 @@ public class AuthorDaoImpl implements AuthorDao {
         query.setParameter("id", id);
         query.executeUpdate();
         return author;
-
     }
 
     @Override
