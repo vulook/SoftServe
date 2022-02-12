@@ -46,11 +46,11 @@
                             <c:param name="bookID" value="${tempBook.id}"/>
                         </c:url>
                         <c:url var="takeLink" value="/cart/add/${tempBook.id}">
-<%--                            <c:param name="bookID" value="${tempBook.id}"/>--%>
+                            <%--                            <c:param name="bookID" value="${tempBook.id}"/>--%>
                         </c:url>
 
                         <c:url var="deleteLink" value="/book/delete/${tempBook.id}">
-<%--                            <c:param name="bookID" value="${tempBook.id}"/>--%>
+                            <%--                            <c:param name="bookID" value="${tempBook.id}"/>--%>
                         </c:url>
 
                         <tr>
@@ -63,8 +63,9 @@
                             <td>${tempBook.ratings}</td>
                             <td>
 
-                                <a href="${updateLink}">Update</a> | <a href="${takeLink}">Take</a> | <a href="${deleteLink}"
-                                                                        onclick="if (!(confirm('Are you sure you want to delete this fucking BOOK?'))) return false">Delete</a>
+                                <a href="${updateLink}">Update</a> | <a href="${takeLink}">Take</a> | <a
+                                    href="${deleteLink}"
+                                    onclick="if (!(confirm('Are you sure you want to delete this fucking BOOK?'))) return false">Delete</a>
                             </td>
                         </tr>
                     </c:forEach>

@@ -19,10 +19,10 @@
         <h3 class="text-center">Library BRM - Carts Relationship Manager</h3>
         <hr/>
 
-<%--        <input type="button" value="Add Cart"--%>
-<%--               href="/book/list"--%>
-<%--               class="btn btn-primary"/> <br/>--%>
-<%--        <br/>--%>
+        <%--        <input type="button" value="Add Cart"--%>
+        <%--               href="/book/list"--%>
+        <%--               class="btn btn-primary"/> <br/>--%>
+        <%--        <br/>--%>
         <div class="panel panel-info">
             <div class="panel-heading">
                 <div class="panel-title">Cart List</div>
@@ -47,11 +47,12 @@
                             <c:param name="cartID" value="${tempCart.id}"/>
                         </c:url>
 
+
                         <tr>
                             <td>${tempCart.cartBook.id}</td>
                             <td>${tempCart.cartBook.bookName}</td>
-                            <td>${tempCart.action}</td>
                             <td>${tempCart.cartUser.id}</td>
+                            <td>${tempCart.action}</td>
                             <td>
 
                                 <a href="${updateLink}">Update</a> | <a href="${deleteLink}"

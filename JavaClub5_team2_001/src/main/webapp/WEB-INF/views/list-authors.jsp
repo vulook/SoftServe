@@ -19,7 +19,6 @@
         <h3 class="text-center">Library BRM - Books Relationship Manager</h3>
         <hr/>
 
-
         <br/>
         <div class="panel panel-info">
             <div class="panel-heading">
@@ -41,7 +40,7 @@
 
 
                         <c:url var="deleteLink" value="/author/delete/${author.id}">
-<%--                            <c:param name="authorID" value="${author.id}"/>--%>
+                            <%-- <c:param name="authorID" value="${author.id}"/>--%>
                         </c:url>
 
                         <tr>
@@ -50,7 +49,7 @@
                             <td>
 
                                 <a href="${updateLink}">Update</a> | <a href="${deleteLink}"
-                                                                        onclick="if (!(confirm('Are you sure you want to delete this author ?'))) return false">Delete</a>
+                                                                        onclick="if (!(confirm('Are you sure you want to delete this fucking Author ?'))) return false">Delete</a>
                             </td>
                         </tr>
                     </c:forEach>
