@@ -1,23 +1,21 @@
 package com.softserve.entity;
 
-import lombok.Data;
 import lombok.*;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 import javax.persistence.*;
 
 import java.util.HashSet;
 import java.util.Set;
 
-@Setter
+@Entity
 @Getter
-@AllArgsConstructor
+@Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @ToString(of = "id")
 @EqualsAndHashCode(of = "id")
-@Entity
 @Table(name = "Author")
 public class Author {
 
@@ -33,11 +31,13 @@ public class Author {
     private String lastName;
 
     @Setter(AccessLevel.PRIVATE)
-    @OneToMany(mappedBy = "mainAuthor", cascade = CascadeType.ALL)
+    @Cascade({CascadeType.SAVE_UPDATE})
+    @OneToMany(mappedBy = "mainAuthor")
     private Set<Book> books = new HashSet<>();
 
     @Setter(AccessLevel.PRIVATE)
-    @ManyToMany(mappedBy = "co_authors",cascade = CascadeType.ALL)
+    @Cascade({CascadeType.ALL})
+    @ManyToMany(mappedBy = "co_authors")
 //    @Cascade({ org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.MERGE, org.hibernate.annotations.CascadeType.PERSIST,org.hibernate.annotations.CascadeType.DELETE})
     private Set<Book> coAuthorBooks = new HashSet<>();
 

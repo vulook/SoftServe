@@ -1,56 +1,42 @@
 package com.softserve.entity;
 
 import lombok.*;
-import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
-import org.hibernate.sql.Insert;
 import org.springframework.data.annotation.ReadOnlyProperty;
-import org.springframework.web.bind.annotation.Mapping;
-
 
 import javax.persistence.*;
 import java.util.*;
 
-@Setter
-@Getter
-@AllArgsConstructor
+@Entity
+@Data
 @NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 @ToString(of = "id")
-@Entity
-@Table(name = "Book")
+@Table(name = "book", schema = "librarydb")
 public class Book {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     @Id
-    @Column(name = "ID")
+    @GeneratedValue
     private long id;
-
-    @Column(name = "BookName")
     private String bookName;
-
-    @Column(name = "Genre")
+    private String author;
     private String genre;
-
-//    @Column(name = "AuthorID")
-//    private long authorId;
-
-    @Column(name = "Count")
+    private long authorId;
     private int count;
-    @Column(name = "PageCount")
     private int pageCount;
-
-    @Column(name = "Ratings")
     private Integer ratings;
 
     @ManyToOne
-    @ReadOnlyProperty//    @Cascade(CascadeType.ALL)
+    @ReadOnlyProperty
+    //@Cascade({CascadeType.ALL})
     @JoinColumn(name = "AuthorID")
     private Author mainAuthor;
 
     @Setter(AccessLevel.PRIVATE)
     @ManyToMany
-//    @Cascade(CascadeType.ALL)
+    @Cascade(CascadeType.ALL)
     @JoinTable(name = "coauthor",
             joinColumns = @JoinColumn(name = "BookID"),
             inverseJoinColumns = @JoinColumn(name = "AuthorID")
