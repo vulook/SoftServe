@@ -2,6 +2,7 @@ package com.softserve.dao;
 
 import com.softserve.entity.Book;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface BookDao {
@@ -15,6 +16,25 @@ public interface BookDao {
     Book deleteCopy(long id);
 
     Book getByID(long id);
-//    T update(T t);
 
+    List<Book> getOwnBooks(String action);
+
+    List<Book> FindBookByName(String name);
+
+    List<Book> FindBookByAuthor(String name);
+
+    List<Book> FindMostPopular(LocalDate start, LocalDate end);
+
+    List<Book> FindLeastPopular(LocalDate start, LocalDate end);
+
+    List<Book> FindAvailable();
+
+    List<Integer> FindTime();
+
+    List<String> getAuthors();
+
+    List<Double> getDuration();
+
+    List<Integer> getCount();
+//    T update(T t);
 }

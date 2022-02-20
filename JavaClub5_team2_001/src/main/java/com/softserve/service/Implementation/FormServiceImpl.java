@@ -15,7 +15,12 @@ public class FormServiceImpl implements FormService {
     FormDao formDao;
 
     @Override
-    public Form create(Form form) {
+    public void create(String book, long userId, long cartID) {
+        formDao.confirmRequest(book, userId, cartID);
+    }
+
+    @Override
+    public Form update(Form form) {
         return formDao.save(form);
     }
 
@@ -25,10 +30,14 @@ public class FormServiceImpl implements FormService {
     }
 
     @Override
+    public void returnBook(long book, long userId) {
+        formDao.confirmReturn(book, userId);
+    }
+
+    @Override
     public Form delete(Long id) {
         return formDao.delete(id);
     }
-
 
     @Override
     public List<Form> getAll() {

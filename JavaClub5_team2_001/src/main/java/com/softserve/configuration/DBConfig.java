@@ -1,10 +1,10 @@
 package com.softserve.configuration;
 
 import java.util.Properties;
+import java.beans.PropertyVetoException;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 
-import org.apache.commons.dbcp2.BasicDataSource;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -17,29 +17,65 @@ import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import java.util.logging.Logger;
+import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 @Configuration
 @EnableTransactionManagement
-@PropertySource({"classpath:db.properties"})
 @ComponentScan({"com.softserve"})
+@PropertySource({"classpath:db.properties"})
+
 public class DBConfig {
 
     @Resource
     private Environment env;
 
-    public DataSource defaultDataSource() {
-        final BasicDataSource dataSource = new BasicDataSource();
-        dataSource.setDriverClassName(env.getRequiredProperty("jdbc.driverClassName"));
-        dataSource.setUrl(env.getRequiredProperty("jdbc.url"));
-        dataSource.setUsername(env.getRequiredProperty("jdbc.username"));
-        dataSource.setPassword(env.getRequiredProperty("jdbc.password"));
-        return dataSource;
+    private final Logger logger = Logger.getLogger(getClass().getName());
+
+    @Bean
+    public DataSource securityDataSource() {
+
+        ComboPooledDataSource securityDataSource = new ComboPooledDataSource();
+
+        try {
+            securityDataSource.setDriverClass(env.getRequiredProperty("jdbc.driverClassName"));
+        } catch (PropertyVetoException e) {
+            throw new RuntimeException(e);
+        }
+
+        logger.info("=>>>> jdbc.url=" + env.getProperty("jdbc.url"));
+        logger.info("=>>>> jdbc.user=" + env.getProperty("jdbc.username"));
+
+        securityDataSource.setJdbcUrl(env.getRequiredProperty("jdbc.url"));
+        securityDataSource.setUser(env.getRequiredProperty("jdbc.username"));
+        securityDataSource.setPassword(env.getRequiredProperty("jdbc.password"));
+
+        // set connection pool props
+        securityDataSource.setInitialPoolSize(
+                getIntProperty("connection.pool.initialPoolSize"));
+
+        securityDataSource.setMinPoolSize(
+                getIntProperty("connection.pool.minPoolSize"));
+
+        securityDataSource.setMaxPoolSize(
+                getIntProperty("connection.pool.maxPoolSize"));
+
+        securityDataSource.setMaxIdleTime(
+                getIntProperty("connection.pool.maxIdleTime"));
+
+        return securityDataSource;
+    }
+
+    private int getIntProperty(String propName) {
+        String propVal = env.getProperty(propName);
+        assert propVal != null;
+        return Integer.parseInt(propVal);
     }
 
     @Bean
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
-        sessionFactory.setDataSource(defaultDataSource());
+        sessionFactory.setDataSource(securityDataSource());
         sessionFactory.setPackagesToScan("com.softserve.entity");
         sessionFactory.setHibernateProperties(hibernateProperties());
         return sessionFactory;

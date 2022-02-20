@@ -6,9 +6,13 @@ import java.util.List;
 
 public interface FormService {
 
-    Form create(Form book);
+    void create(String book, long userId, long cartID);
+
+    Form update(Form form);
 
     Form findByID(Long id);
+
+    void returnBook(long book, long userId);
 
     Form delete(Long id);
 

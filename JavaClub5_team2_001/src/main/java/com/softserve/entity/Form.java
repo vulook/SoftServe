@@ -1,8 +1,6 @@
 package com.softserve.entity;
 
 import lombok.*;
-import org.hibernate.annotations.Cascade;
-
 import javax.persistence.*;
 import java.sql.Date;
 
@@ -31,11 +29,12 @@ public class Form {
     @Column(name = "ReturnDate")
     private Date returnDate;
 
-    @Column(name = "BookReturned")
+    @Column(name = "BookReturned", nullable = true)
+
     private Date bookReturned;
 
     @ManyToOne
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+//    @ReadOnlyProperty
     @JoinColumn(name = "BookID")
     private Book FormBook;
 

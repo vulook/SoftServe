@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.Query;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -22,11 +23,15 @@ public class FormDaoImpl implements FormDao {
     @SuppressWarnings("unchecked")
     public List<Form> getAllByUser() {
         User user = new User();
+        List<Form> formList = new ArrayList<>();
         Query query = sessionFactory.getCurrentSession().createSQLQuery("call getID()").addEntity(User.class);
         user = (User) query.getResultList().stream().findFirst().orElse(null);
-        Query query1 = sessionFactory.getCurrentSession().createQuery("select c from Form c where c.FormUser.id=:id", Form.class);
-        query1.setParameter("id", user.getId());
-        return query1.getResultList();
+        if (user != null) {
+            Query query1 = sessionFactory.getCurrentSession().createQuery("select c from Form c where c.FormUser.id=:id", Form.class);
+            query1.setParameter("id", user.getId());
+            formList = query1.getResultList();
+        }
+        return formList;
     }
 
     @Override
@@ -53,6 +58,22 @@ public class FormDaoImpl implements FormDao {
     @Override
     public Form getByID(long id) {
         return sessionFactory.getCurrentSession().find(Form.class, id);
+    }
+
+    @Override
+    public void confirmRequest(String book, long userID, long cartId) {
+        Query query = sessionFactory.getCurrentSession().createSQLQuery("CALL RequestNeededBook(:book,:user,:cart)");
+        query.setParameter("book", book);
+        query.setParameter("user", userID);
+        query.setParameter("cart", cartId);
+        query.executeUpdate();
+    }
+    @Override
+    public void confirmReturn(long book, long userID) {
+        Query query = sessionFactory.getCurrentSession().createSQLQuery("CALL ConfirmReturn(:book,:user)");
+        query.setParameter("book", book);
+        query.setParameter("user", userID);
+        query.executeUpdate();
     }
 
 }

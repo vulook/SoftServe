@@ -30,7 +30,7 @@ public class Book {
 
     @ManyToOne
     @ReadOnlyProperty
-    //@Cascade({CascadeType.ALL})
+    @Cascade(CascadeType.ALL)
     @JoinColumn(name = "AuthorID")
     private Author mainAuthor;
 
@@ -42,11 +42,5 @@ public class Book {
             inverseJoinColumns = @JoinColumn(name = "AuthorID")
     )
     private Set<Author> co_authors = new HashSet<>();
-//    @OneToMany(mappedBy = "CartBook")
-//    @Cascade(CascadeType.ALL)
-//    private List<Cart> cartList = new LinkedList<>();
-//
-//    @OneToMany(mappedBy = "FormBook")
-//    @Cascade(CascadeType.ALL)
-//    private List<Form> formList = new LinkedList<>();
+
 }

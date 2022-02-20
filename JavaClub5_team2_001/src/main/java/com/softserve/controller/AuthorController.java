@@ -1,8 +1,5 @@
 package com.softserve.controller;
 
-import com.softserve.entity.Author;
-import com.softserve.entity.Book;
-import com.softserve.service.AuthorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import com.softserve.entity.Author;
+import com.softserve.service.AuthorService;
 
+import java.util.List;
 
 @Controller
 @RequestMapping("/author")
@@ -46,7 +45,8 @@ public class AuthorController {
     }
 
     @GetMapping("/updateForm")
-    public String showFormForUpdate(@RequestParam("authorID") long theId, Model theModel) {
+    public String showFormForUpdate(@RequestParam("authorID") long theId,
+                                    Model theModel) {
         LOG.debug("Update Book handler method");
         Author theAuthor = authorService.read(theId);
         theModel.addAttribute("author", theAuthor);

@@ -40,14 +40,14 @@
 
                     <c:forEach var="tempForm" items="${forms}">
 
-                        <%--                        <c:url var="updateLink" value="/form/updateForm">--%>
-                        <%--                            <c:param name="formID" value="${tempForm.id}"/>--%>
-                        <%--                        </c:url>--%>
+<%--                        <c:url var="updateLink" value="/form/updateForm">--%>
+<%--                            <c:param name="formID" value="${tempForm.id}"/>--%>
+<%--                        </c:url>--%>
 
 
-                        <%--                        <c:url var="deleteLink" value="/form/delete/${tempForm.id}">--%>
-                        <%--                            <c:param name="formID" value="${tempForm.id}"/>--%>
-                        <%--                        </c:url>--%>
+<%--                        <c:url var="deleteLink" value="/form/delete/${tempForm.id}">--%>
+<%--                            <c:param name="formID" value="${tempForm.id}"/>--%>
+<%--                        </c:url>--%>
 
 
                         <tr>
@@ -57,15 +57,20 @@
                             <td>${tempForm.startDate}</td>
                             <td>${tempForm.returnDate}</td>
                             <td>${tempForm.bookReturned}</td>
-                                <%--                            <td>--%>
+<%--                            <td>--%>
 
-                                <%--                                <a href="${updateLink}">Update</a> | <a href="${deleteLink}"--%>
-                                <%--                                                                        onclick="if (!(confirm('Are you sure you want to delete this fucking FORM?'))) return false">Delete</a>--%>
-                                <%--                            </td>--%>
+<%--                                <a href="${updateLink}">Update</a> | <a href="${deleteLink}"--%>
+<%--                                                                        onclick="if (!(confirm('Are you sure you want to delete this fucking FORM?'))) return false">Delete</a>--%>
+<%--                            </td>--%>
                         </tr>
                     </c:forEach>
                 </table>
+                <input type="button" value="back" style="margin-left: 14.88vw"
+                       onclick="window.location.replace('http://localhost:8080/JavaClub5_team2_war_exploded/books'); return false;"
+                       class="btn btn-primary"/> <br/>
             </div>
+            <br/>
+
         </div>
     </div>
 

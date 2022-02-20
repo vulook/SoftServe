@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.Query;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -23,11 +24,15 @@ public class CartDaoImpl implements CartDao {
     @SuppressWarnings("unchecked")
     public List<Cart> getAllByUser() {
         User user = new User();
+        List<Cart> cartList = new ArrayList<>();
         Query query = sessionFactory.getCurrentSession().createSQLQuery("call getID()").addEntity(User.class);
         user = (User) query.getResultList().stream().findFirst().orElse(null);
-        Query query1 = sessionFactory.getCurrentSession().createQuery("select c from Cart c where c.CartUser.id=:id", Cart.class);
-        query1.setParameter("id", user.getId());
-        return query1.getResultList();
+        if (user != null) {
+            Query query1 = sessionFactory.getCurrentSession().createQuery("select c from Cart c where c.CartUser.id=:id", Cart.class);
+            query1.setParameter("id", user.getId());
+            cartList = query1.getResultList();
+        }
+        return cartList;
     }
 
     @Override
@@ -42,11 +47,13 @@ public class CartDaoImpl implements CartDao {
         User user = new User();
         Query query = sessionFactory.getCurrentSession().createSQLQuery("call getID()").addEntity(User.class);
         user = (User) query.getResultList().stream().findFirst().orElse(null);
-        Book book = sessionFactory.getCurrentSession().find(Book.class, id);
-        Query query1 = sessionFactory.getCurrentSession().createSQLQuery("call RequestBook(:bookname,:uId)");
-        query1.setParameter("uId", user.getId());
-        query1.setParameter("bookname", book.getBookName());
-        query1.executeUpdate();
+        if (user != null) {
+            Book book = sessionFactory.getCurrentSession().find(Book.class, id);
+            Query query1 = sessionFactory.getCurrentSession().createSQLQuery("call RequestBook(:bookname,:uId)");
+            query1.setParameter("uId", user.getId());
+            query1.setParameter("bookname", book.getBookName());
+            query1.executeUpdate();
+        }
     }
 
     @Override
@@ -70,6 +77,21 @@ public class CartDaoImpl implements CartDao {
     @Override
     public Cart getByID(long id) {
         return sessionFactory.getCurrentSession().find(Cart.class, id);
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public void returnBook(long id) {
+        User user = new User();
+        Query query = sessionFactory.getCurrentSession().createSQLQuery("call getID()").addEntity(User.class);
+        user = (User) query.getResultList().stream().findFirst().orElse(null);
+        if (user != null) {
+            Book book = sessionFactory.getCurrentSession().find(Book.class, id);
+            Query query1 = sessionFactory.getCurrentSession().createSQLQuery("call ReturnBookByUser(:bookid,:uId)");
+            query1.setParameter("uId", user.getId());
+            query1.setParameter("bookid", book.getId());
+            query1.executeUpdate();
+        }
     }
 
 }

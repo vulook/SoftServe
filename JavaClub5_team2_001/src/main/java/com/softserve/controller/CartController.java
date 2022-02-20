@@ -1,7 +1,6 @@
 package com.softserve.controller;
 
 import com.softserve.entity.Cart;
-import com.softserve.entity.Form;
 import com.softserve.service.CartService;
 import com.softserve.service.FormService;
 import org.slf4j.Logger;
@@ -11,8 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
+
 
 @Controller
 public class CartController {
@@ -25,7 +25,7 @@ public class CartController {
     @Autowired
     private FormService formService;
 
-    @GetMapping("/cart/list")
+    @GetMapping("/carts/my")
     public String listCarts(Model theModel) {
         LOG.debug("Show Carts handler method");
         List<Cart> theCarts = cartService.findAllByID();
@@ -37,7 +37,10 @@ public class CartController {
     public String allCarts(Model theModel) {
         LOG.debug("Show Carts handler method");
         List<Cart> theCarts = cartService.getAll();
-        theModel.addAttribute("carts", theCarts);
+        List<Cart> newCarts = theCarts.stream().filter(x -> x.getAction() == 0).collect(Collectors.toList());
+        List<Cart> returnCarts = theCarts.stream().filter(x -> x.getAction() == 1).collect(Collectors.toList());
+        theModel.addAttribute("newcarts", newCarts);
+        theModel.addAttribute("returncarts", returnCarts);
         return "all-carts";
     }
 
@@ -57,8 +60,7 @@ public class CartController {
     }
 
     @GetMapping("/cart/updateForm")
-    public String showFormForUpdate(@RequestParam("cartID") long theId,
-                                    Model theModel) {
+    public String showFormForUpdate(@RequestParam("cartID") long theId, Model theModel) {
         LOG.debug("Update Cart handler method");
         Cart theCart = cartService.findByID(theId);
         theModel.addAttribute("cart", theCart);
@@ -66,25 +68,38 @@ public class CartController {
     }
 
     @GetMapping("/cart/delete/{id}")
-    public String deleteCart(@PathVariable long id)  {
+    public String deleteCart(@PathVariable long id) {
         LOG.debug("Delete Cart handler method");
         cartService.delete(id);
-        return "redirect:/cart/list";
+        return "redirect:/carts/my";
     }
 
     @GetMapping("/carts/delete/{id}")
-    public String deleteCarts(@PathVariable long id)  {
+    public String deleteCarts(@PathVariable long id) {
         LOG.debug("Delete Cart handler method");
         cartService.delete(id);
         return "redirect:/carts";
     }
 
     @GetMapping("/cart/add/{id}")
-    public String addCart(@PathVariable long id)  {
+    public String addCart(@PathVariable long id) {
         LOG.debug("Delete Cart handler method");
         cartService.request(id);
-        return "redirect:/cart/list";
+        return "redirect:/carts/my";
     }
+
+    @GetMapping("/cart/return/{id}")
+    public String returnCart(@PathVariable long id) {
+        LOG.debug("Delete Cart handler method");
+        cartService.returnBook(id);
+        return "redirect:/carts/my";
+    }
+//    @GetMapping("/cart/add/{id}")
+//    public String addCart(@PathVariable long id)  {
+//        LOG.debug("Delete Cart handler method");
+//        cartService.request(id);
+//        return "redirect:/cart/list";
+//    }
 //    @GetMapping("/carts/updateForm")
 //    public String showForm(@RequestParam("cartID") long theId,
 //                                    Model theModel) {

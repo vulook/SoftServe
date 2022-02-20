@@ -35,20 +35,38 @@
                             <form:input path="startDate" cssClass="ui-icon-calendar"/>
                         </div>
                     </div>
-
                     <div class="form-group">
                         <label for="returnDate" class="col-md-3 control-label">Return date</label>
                         <div class="col-md-9">
                             <form:input path="returnDate" cssClass="form-control"/>
                         </div>
                     </div>
-
                     <div class="form-group">
                         <label for="bookReturned" class="col-md-3 control-label">Book Returned</label>
                         <div class="col-md-9">
                             <form:input path="bookReturned" cssClass="form-control"/>
                         </div>
                     </div>
+                    <div class="form-group" hidden="true">
+                        <label for="formBook.id" class="col-md-3 control-label">Book Returned</label>
+                        <div class="col-md-9">
+                            <form:input path="formBook.id" cssClass="form-control"/>
+                        </div>
+                    </div>
+                    <div class="form-group" hidden="hidden">
+                        <label for="formUser.id" class="col-md-3 control-label">Book Returned</label>
+                        <div class="col-md-9">
+                            <form:input path="formUser.id" cssClass="form-control"/>
+                        </div>
+                    </div>
+                    <div class="form-group" hidden="hidden">
+                        <label for="formBook.bookName" class="col-md-3 control-label">Book Returned</label>
+                        <div class="col-md-9">
+                            <form:input path="formBook.bookName" cssClass="form-control"/>
+                        </div>
+                    </div>
+                    <%--                    <form:hidden path="bookReturned"></form:hidden>--%>
+
 
                     <div class="form-group">
                         <div class="col-md-offset-3 col-md-9">

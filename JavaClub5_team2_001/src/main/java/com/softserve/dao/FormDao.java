@@ -16,6 +16,8 @@ public interface FormDao {
 
     Form getByID(long id);
 
-//    void request(long id);
+    void confirmRequest(String book, long userID, long cartID);
+
+    void confirmReturn(long book, long userID);
 
 }

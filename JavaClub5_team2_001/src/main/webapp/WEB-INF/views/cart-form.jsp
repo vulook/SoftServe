@@ -35,7 +35,6 @@
                             <form:input path="cartBook.id" cssClass="form-control"/>
                         </div>
                     </div>
-
                     <div class="form-group">
                         <label for="Action" class="col-md-3 control-label">Action</label>
                         <div class="col-md-9">

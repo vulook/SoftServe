@@ -1,19 +1,26 @@
 package com.softserve.service;
 
+import com.softserve.entity.Book;
 import com.softserve.entity.User;
+import com.softserve.validation.ValidationForm;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
 
-public interface UserService {
+public interface UserService  extends UserDetailsService {
 
-    void create(User user);
+    List<User> getReaders();
 
-    void delete(Long id);
+    List<String> getStat();
 
-    User read(User user);
+    List<User> getDebtors();
 
-    User findById(Long id);
+    List<Book> getStatByReader(String action, long id);
 
-    List<User> findAll();
+    Integer timeWithLibrary(long id);
+
+    User findByUserEmail(String userEmail);
+
+    void save(ValidationForm validationForm);
 
 }
