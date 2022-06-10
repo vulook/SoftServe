@@ -1,5 +1,6 @@
 package com.softserve.controller;
 
+import com.softserve.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,10 +26,13 @@ public class FormController {
     @Autowired
     CartService cartService;
 
-    @GetMapping("/forms/my")
+    @Autowired
+    UserService userService;
+
+    @GetMapping("/form/my")
     public String listForms(Model theModel) {
         LOG.debug("Show Forms handler method");
-        List<Form> theForms = formService.findAllByID();
+        List<Form> theForms = formService.findAllByID(userService.getId());
         theModel.addAttribute("forms", theForms);
         return "list-forms";
     }
@@ -41,17 +45,9 @@ public class FormController {
         return "all-forms";
     }
 
-//    @GetMapping("/forms/showForm")
-//    public String showFormForAdd(Model theModel) {
-//        LOG.debug("Inside show form-form handler method");
-//        Form theForm = new Form();
-//        theModel.addAttribute("form", theForm);
-//        return "form-form";
-//    }
-
     @GetMapping("/forms/addForm/{cartID}")
     public String saveForm(@PathVariable long cartID) {
-        LOG.debug("Save Form handler method");
+        LOG.debug("Add Form handler method");
         Cart cart = cartService.findByID(cartID);
         formService.create(cart.getCartBook().getBookName(), cart.getCartUser().getId(), cartID);
         return "redirect:/forms";
@@ -59,7 +55,7 @@ public class FormController {
 
     @GetMapping("/forms/CloseRequest/{cartID}")
     public String EditForm(@PathVariable long cartID) {
-        LOG.debug("Save Form handler method");
+        LOG.debug("Edit Form handler method");
         Cart cart = cartService.findByID(cartID);
         formService.returnBook(cart.getCartBook().getId(), cart.getCartUser().getId());
         return "redirect:/forms";
@@ -71,21 +67,6 @@ public class FormController {
         formService.delete(id);
         return "redirect:/forms";
     }
-
-    //    @GetMapping("/forms/createForm")
-//    public String showForm(@RequestParam("cartID") long theId,
-//                           Model theModel) {
-//        LOG.debug("Update Form handler method");
-//        Form theForm = new Form();
-//        Cart cart = cartService.findByID(theId);
-//        theForm.setFormUser(cart.getCartUser());
-//        theForm.setFormBook(cart.getCartBook());
-//        theForm.setBookReturned(Date.valueOf(LocalDate.now()));
-////        java.sql.Date date1= (java.sql.Date) date;
-//
-//        theModel.addAttribute("form", theForm);
-//        return "form-form";
-//    }
 
     @GetMapping("/forms/updateForm")
     public String showFormForUpdate(@RequestParam("formID") long theId,
@@ -99,7 +80,6 @@ public class FormController {
     @PostMapping("/forms/saveForm")
     public String EditForm(@ModelAttribute("form") Form theForm) {
         LOG.debug("Save Form handler method");
-//       Form form = cartService.findByID(cartID);
         formService.update(theForm);
         return "redirect:/forms";
     }

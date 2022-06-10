@@ -15,9 +15,7 @@ public class FormServiceImpl implements FormService {
     FormDao formDao;
 
     @Override
-    public void create(String book, long userId, long cartID) {
-        formDao.confirmRequest(book, userId, cartID);
-    }
+    public void create(String book, long userId, long cartID) { formDao.confirmRequest(book, userId, cartID); }
 
     @Override
     public Form update(Form form) {
@@ -45,8 +43,8 @@ public class FormServiceImpl implements FormService {
     }
 
     @Override
-    public List<Form> findAllByID() {
-        return formDao.getAllByUser();
+    public List<Form> findAllByID(Long id) {
+        return formDao.getAllByUser(id);
     }
 
 }

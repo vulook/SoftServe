@@ -15,24 +15,36 @@ public class CartServiceImpl implements CartService {
     CartDao cartDao;
 
     @Override
-    public Cart create(Cart book) { return cartDao.save(book); }
+    public Cart create(Cart book, Long id) {
+        return cartDao.save(book, id);
+    }
 
     @Override
-    public Cart findByID(Long id) { return cartDao.getByID(id); }
+    public Cart findByID(Long id) {
+        return cartDao.getByID(id);
+    }
 
     @Override
-    public Cart delete(Long id) { return cartDao.delete(id); }
+    public Cart delete(Long id) {
+        return cartDao.delete(id);
+    }
 
     @Override
-    public void request(Long id) { cartDao.request(id); }
+    public void request(Long id, Long userServiceId) {
+        cartDao.request(id, userServiceId);
+    }
 
     @Override
-    public void returnBook(long id) { cartDao.returnBook(id); }
+    public void returnBook(Long id, Long userServiceId) {
+        cartDao.returnBook(id, userServiceId);
+    }
 
     @Override
-    public List<Cart> getAll() { return cartDao.getAll(); }
+    public List<Cart> getAll() {
+        return cartDao.getAll();
+    }
 
     @Override
-    public List<Cart> findAllByID() { return cartDao.getAllByUser(); }
+    public List<Cart> findAllByID(Long id) { return cartDao.getAllByUser(id);}
 
 }

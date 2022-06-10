@@ -33,10 +33,10 @@
 					<div class="panel-title">Sign In</div>
 				</div>
 
-				<div style="padding-top: 30px" class="panel-body">
+				<div style=" padding-top: 30px" class="panel-body">
 
 					<!-- Login Form -->
-					<form action="${pageContext.request.contextPath}/authenticateTheUser" 
+					<form action="./authenticateTheUser"
 						  method="POST" class="form-horizontal">
 
 					    <div class="form-group">
@@ -71,7 +71,7 @@
 						<div style="margin-bottom: 25px" class="input-group">
 							<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span> 
 							
-							<input type="text" name="username" placeholder="username" class="form-control">
+							<input type="text" name="username" placeholder="user-email" class="form-control">
 						</div>
 
 						<!-- Password -->
@@ -90,9 +90,9 @@
 
 						<!-- I'm manually adding tokens ... Bro! -->
 
-						<input type="hidden"
-							   name="${_csrf.parameterName}"
-							   value="${_csrf.token}" />
+<%--						<input type="hidden"--%>
+<%--							   name="${_csrf.parameterName}"--%>
+<%--							   value="${_csrf.token}" />--%>
 						
 					</form>
 
@@ -101,7 +101,7 @@
 			</div>
 
 			<div>
-				<a href="${pageContext.request.contextPath}/register/showRegistrationForm" class="btn btn-primary" role="button" aria-pressed="true">Register New User</a>
+				<a href="./register/showRegistrationForm" class="btn btn-primary" role="button" aria-pressed="true">Register New User</a>
 			</div>
 
 		</div>

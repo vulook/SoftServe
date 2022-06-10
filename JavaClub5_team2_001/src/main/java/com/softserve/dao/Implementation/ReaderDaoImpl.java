@@ -27,12 +27,12 @@ public class ReaderDaoImpl implements ReaderDao {
 
     @Override
     public List<String> getStat() {
-        String avgAge = String.valueOf(sessionFactory.getCurrentSession().createSQLQuery("call GetStatAboutReaderAvrAge()").getFirstResult());
-        String avgTime = String.valueOf(sessionFactory.getCurrentSession().createSQLQuery("call GetStatAboutAvrReg()").getFirstResult());
-        String avgRequest = String.valueOf(sessionFactory.getCurrentSession().createSQLQuery("call getAvgRequest()").getFirstResult());
+        String avgAge = String.valueOf(sessionFactory.getCurrentSession().createSQLQuery("call GetStatAboutReaderAvrAge()").getResultList().get(0));
+        String avgTime = String.valueOf(sessionFactory.getCurrentSession().createSQLQuery("call GetStatAboutAvrReg()").getResultList().get(0));
+        String avgRequest = String.valueOf(sessionFactory.getCurrentSession().createSQLQuery("call getAvgRequest()").getResultList().get(0));
         List<String> strings = new ArrayList<>();
-        strings.add("Average age: " + avgAge);
-        strings.add("Average time with library :" + avgTime);
+        strings.add("Average age: " + avgAge + " years");
+        strings.add("Average time with library :" + avgTime + " months");
         strings.add("Average requests per month :" + avgRequest);
         return strings;
     }
@@ -41,6 +41,7 @@ public class ReaderDaoImpl implements ReaderDao {
     @SuppressWarnings("unchecked")
     public List<User> getDebtors() {
         return sessionFactory.getCurrentSession().createSQLQuery("call ListOfDebtors").addEntity(User.class).getResultList();
+
     }
 
     @Override

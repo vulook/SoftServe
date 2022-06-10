@@ -23,8 +23,8 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Book deleteCopy(Long id) {
-        return bookDao.deleteCopy(id);
+    public void deleteCopy(Long id) {
+        bookDao.deleteCopy(id);
     }
 
     @Override
@@ -43,8 +43,8 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<Book> findBookByUser(String action) {
-        return bookDao.getOwnBooks(action);
+    public List<Book> findBookByUser(String action, Long userID) {
+        return bookDao.getOwnBooks(action, userID);
     }
 
     @Override
@@ -53,9 +53,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<Book> findBookByAuthor(String name) {
-        return bookDao.FindBookByAuthor(name);
-    }
+    public List<Book> findBookByAuthor(String name) { return bookDao.FindBookByAuthor(name); }
 
     @Override
     public List<Book> findPopular(LocalDate start, LocalDate end) {
@@ -73,8 +71,8 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<Integer> findTime() {
-        return bookDao.FindTime();
+    public List<Integer> findTime(Long userID) {
+        return bookDao.FindTime(userID);
     }
 
     @Override

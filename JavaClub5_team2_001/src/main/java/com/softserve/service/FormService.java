@@ -18,6 +18,6 @@ public interface FormService {
 
     List<Form> getAll();
 
-    List<Form> findAllByID();
+    List<Form> findAllByID(Long id);
 
 }

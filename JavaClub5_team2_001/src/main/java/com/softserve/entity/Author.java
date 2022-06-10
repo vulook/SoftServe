@@ -10,24 +10,18 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString(of = "id")
 @EqualsAndHashCode(of = "id")
-@Table(name = "Author")
+@Table(name = "author", schema = "librarydb")
 public class Author {
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "ID")
+    @GeneratedValue
     private long id;
-
-    @Column(name = "FirstName")
     private String firstName;
-
-    @Column(name = "LastName")
     private String lastName;
 
     @Setter(AccessLevel.PRIVATE)
@@ -38,7 +32,6 @@ public class Author {
     @Setter(AccessLevel.PRIVATE)
     @Cascade({CascadeType.ALL})
     @ManyToMany(mappedBy = "co_authors")
-//    @Cascade({ org.hibernate.annotations.CascadeType.SAVE_UPDATE, org.hibernate.annotations.CascadeType.MERGE, org.hibernate.annotations.CascadeType.PERSIST,org.hibernate.annotations.CascadeType.DELETE})
     private Set<Book> coAuthorBooks = new HashSet<>();
 
 }

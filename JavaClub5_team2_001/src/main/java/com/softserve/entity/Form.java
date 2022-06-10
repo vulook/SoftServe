@@ -1,6 +1,9 @@
 package com.softserve.entity;
 
 import lombok.*;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 import javax.persistence.*;
 import java.sql.Date;
 
@@ -10,36 +13,24 @@ import java.sql.Date;
 @NoArgsConstructor
 @ToString(of = "id")
 @EqualsAndHashCode(of = "id")
-@Table(name = "Form")
+@Table(name = "form", schema = "librarydb")
 public class Form {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     @Id
-    @Column(name = "ID")
+    @GeneratedValue
     private long id;
-
-//    @Column(name = "UserID")
-//    private Long userId;
-//
-//    @Column(name = "BookID")
-//    private long bookId;
-
-    @Column(name = "StartDate")
     private Date startDate;
-
-    @Column(name = "ReturnDate")
     private Date returnDate;
-
-    @Column(name = "BookReturned", nullable = true)
-
     private Date bookReturned;
 
     @ManyToOne
-//    @ReadOnlyProperty
+    @Cascade(CascadeType.SAVE_UPDATE)
     @JoinColumn(name = "BookID")
     private Book FormBook;
 
     @ManyToOne
-//    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @Cascade(CascadeType.SAVE_UPDATE)
     @JoinColumn(name = "UserID")
     private User FormUser;
+
 }

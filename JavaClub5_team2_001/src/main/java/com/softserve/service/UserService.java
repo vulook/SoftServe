@@ -2,14 +2,19 @@ package com.softserve.service;
 
 import com.softserve.entity.Book;
 import com.softserve.entity.User;
-import com.softserve.validation.ValidationForm;
+import com.softserve.validation.UserValidator;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 public interface UserService  extends UserDetailsService {
 
+    Long getId();
+
     List<User> getReaders();
+
+    List<User> getAll();
 
     List<String> getStat();
 
@@ -21,6 +26,6 @@ public interface UserService  extends UserDetailsService {
 
     User findByUserEmail(String userEmail);
 
-    void save(ValidationForm validationForm);
-
+    @Transactional
+    void save(UserValidator userValidator);
 }

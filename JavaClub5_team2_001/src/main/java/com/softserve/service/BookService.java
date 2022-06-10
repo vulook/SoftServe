@@ -13,11 +13,11 @@ public interface BookService {
 
     Book delete(Long id);
 
-    Book deleteCopy(Long id);
+    void deleteCopy(Long id);
 
     List<Book> findAll();
 
-    List<Book> findBookByUser(String action);
+    List<Book> findBookByUser(String action, Long userID);
 
     List<Book> findBookByName(String name);
 
@@ -29,7 +29,7 @@ public interface BookService {
 
     List<Book> findAvailable();
 
-    List<Integer> findTime();
+    List<Integer> findTime(Long userID);
 
     List<String> getAuthors();
 

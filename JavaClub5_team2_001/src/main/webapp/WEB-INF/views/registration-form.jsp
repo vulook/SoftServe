@@ -1,37 +1,34 @@
-<%@ page import="java.util.Date" %>
-<%@ page import="java.text.SimpleDateFormat" %>
-<%@ page import="java.util.Locale" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<%
-    Date date = new Date();
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
-%>
 
 <!DOCTYPE html>
 <html>
-<meta charset="utf-8">
 
-<title>Register New User Form</title>
 
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<head>
 
-<!-- Reference Bootstrap files -->
-<link rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <title>Register New User Form</title>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- Reference Bootstrap files -->
+    <link rel="stylesheet" type="text/css"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
-<style>
-    .error {
-        color: red
-    }
-</style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <style>
+        .error {
+            color: red
+        }
+    </style>
+
+</head>
 
 <body>
 
@@ -50,15 +47,13 @@
 
                 <!-- Registration Form -->
                 <form:form action="${pageContext.request.contextPath}/register/processRegistrationForm"
-                           modelAttribute="validationForm"
+                           modelAttribute="userValidator"
                            class="form-horizontal">
 
                     <!-- Place for messages: error, alert etc ... -->
                     <div class="form-group">
                         <div class="col-xs-15">
                             <div>
-
-                                <!-- Check for registration error -->
                                 <c:if test="${registrationError != null}">
 
                                     <div class="alert alert-danger col-xs-offset-1 col-xs-10">
@@ -66,7 +61,6 @@
                                     </div>
 
                                 </c:if>
-
                             </div>
                         </div>
                     </div>
@@ -75,7 +69,7 @@
                     <div style="margin-bottom: 25px" class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                         <form:errors path="email" cssClass="error"/>
-                        <form:input path="email" placeholder="email (*)" class="form-control"/>
+                        <form:input path="email" type="email" required="required"  placeholder="email (*)" class="form-control"/>
                     </div>
 
                     <!-- Password -->
@@ -120,14 +114,6 @@
                         <form:input path="phone" placeholder="phone (*)" class="form-control"/>
                     </div>
 
-                    <!-- RegDate -->
-                    <div style="margin-bottom: 25px" class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                        <form:errors path="regDate" cssClass="error"/>
-<%--                        <form:input path="regDate" placeholder="" value="2022-02-22"  class="form-control"/>--%>
-                        <form:input path="regDate" disabled="true" value="<%=sdf.format(date) %>" class="form-control"/>
-                    </div>
-
                     <!-- Register Button -->
                     <div style="margin-top: 10px" class="form-group">
                         <div class="col-sm-6 controls">
@@ -138,11 +124,8 @@
                 </form:form>
 
             </div>
-
         </div>
-
     </div>
-
 </div>
 
 </body>

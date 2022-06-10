@@ -1,5 +1,6 @@
 package com.softserve.controller;
 
+import com.softserve.service.Implementation.MailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,11 +39,11 @@ public class ReaderController {
     }
 
     @GetMapping("/readers/{id}")
-    public String list(@PathVariable long id,Model theModel) {
+    public String list(@PathVariable long id, Model theModel) {
         LOG.debug("Show Books handler method");
-        List<Book> theBooks = userService.getStatByReader("reading",id);
-        List<Book> theBooks1 = userService.getStatByReader("read",id);
-        Integer time  = userService.timeWithLibrary(id);
+        List<Book> theBooks = userService.getStatByReader("reading", id);
+        List<Book> theBooks1 = userService.getStatByReader("read", id);
+        Integer time = userService.timeWithLibrary(id);
         theModel.addAttribute("time", time);
         theModel.addAttribute("reading", theBooks);
         theModel.addAttribute("books", theBooks1);
@@ -57,33 +58,45 @@ public class ReaderController {
         return "library-info";
     }
 
-//    @GetMapping("/showForm")
-//    public String showFormForAdd(Model theModel) {
-//        LOG.debug("Inside show book-form handler method");
-//        Reader theReader = new Reader();
-//        theModel.addAttribute("reader", theReader);
-//        return "reader-form";
-//    }
+    @GetMapping("/readers/sendMail")
+    public String showEmailMessage(@RequestParam("ReaderID") long theId,
+                                   Model theModel) {
+        LOG.debug("Update Book handler method");
+        String email = userService.getReaders().stream().filter(x -> x.getId() == theId).findFirst().orElseThrow().getEmail();
+        theModel.addAttribute("emails", email);
 
-//    @PostMapping("/saveReader")
-//    public String saveReader(@ModelAttribute("reader") Reader theReader) {
-//        LOG.debug("Save Book handler method");
-//        userService.update(theReader);
-//        return "redirect:/reader/list";
-//    }
-//
-//    @GetMapping("/updateForm")
-//    public String showFormForUpdate(@RequestParam("readerID") long theId,
-//                                    Model theModel) {
-//        LOG.debug("Update Book handler method");
-//        Reader theReader = userService.read(theId);
-//        theModel.addAttribute("reader", theReader);
-//        return "reader-form";
-//    }
-//    @GetMapping("/delete/{id}")
-//    public String deleteReader(@PathVariable long id)  {
-//        LOG.debug("Delete Book handler method");
-//        userService.delete(id);
-//        return "redirect:/reader/list";
-//    }
+        return "email-form";
+    }
+
+    @GetMapping("/readers/sendToAll")
+    public String showEmail(@RequestParam("Debtors") String debtors, Model theModel) {
+        LOG.debug("SendToAll handler method");
+        String[] emails;
+        if (debtors.equals("true")) {
+            emails = userService.getDebtors().stream().map(User::getEmail).toArray(String[]::new);
+        } else {
+            emails = userService.getReaders().stream().map(User::getEmail).toArray(String[]::new);
+        }
+        StringBuilder sb = new StringBuilder();
+        for (String str : emails) {
+            sb.append(str).append(" ");
+        }
+        sb.deleteCharAt(sb.lastIndexOf(" "));
+        theModel.addAttribute("emails", sb);
+        return "email-form";
+    }
+
+    @GetMapping("/readers/send")
+    public String send(@RequestParam("emails") String emails, @RequestParam("subject") String subject, @RequestParam("message") String message, Model theModel) {
+        LOG.debug("Update Book handler method");
+        MailService mailService = new MailService();
+        try {
+            String[] emailArr = emails.split(" ");
+            mailService.sendEmail(emailArr, subject, message);
+        } catch (javax.mail.MessagingException e) {
+            e.printStackTrace();
+        }
+        return "redirect:/book/list";
+    }
+
 }

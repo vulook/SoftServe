@@ -2,38 +2,32 @@ package com.softserve.entity;
 
 import lombok.*;
 import org.hibernate.annotations.Cascade;
-import org.springframework.data.annotation.ReadOnlyProperty;
+import org.hibernate.annotations.CascadeType;
 
 import javax.persistence.*;
-@Setter
-@Getter
-@EqualsAndHashCode(of = "id")
+
 @Entity
 @Data
-@ToString
 @NoArgsConstructor
-@Table(name = "Cart")
+@AllArgsConstructor
+@EqualsAndHashCode(of = "id")
+@ToString
+@Table(name = "cart", schema = "librarydb")
 public class Cart {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     @Id
-    @Column(name = "ID")
+    @GeneratedValue
     private long id;
-//    @ReadOnlyProperty
-//    private long UserID;
-//    @ReadOnlyProperty
-//
-//    private long BookID;
     private byte action;
 
     @ManyToOne
-//    @ReadOnlyProperty
+    @Cascade(CascadeType.ALL)
     @JoinColumn(name = "BookID")
     private Book CartBook;
 
     @ManyToOne
-//    @ReadOnlyProperty
+    @Cascade(CascadeType.ALL)
     @JoinColumn(name = "UserID")
     private User CartUser;
-
 
 }

@@ -21,26 +21,29 @@
 
         <input type="button" value="Add Book"
                onclick="window.location.href='showForm'; return false;"
+               class="btn btn-primary"/>
+        <input type="button" value="Log out" style="margin-left:42vw"
+               onclick="window.location.replace('http://localhost:8080/logout'); return false;"
                class="btn btn-primary"/> <br/>
         <br/>
         <input type="button" value="Manage authors"
-               onclick="window.location.replace('http://localhost:8080/JavaClub5_team2_war_exploded/author/list'); return false;"
+               onclick="window.location.replace('http://localhost:8080/author/list'); return false;"
                class="btn btn-primary"/>
         <input type="button" value="Manage forms"
-               onclick="window.location.replace('http://localhost:8080/JavaClub5_team2_war_exploded/forms'); return false;"
+               onclick="window.location.replace('http://localhost:8080/forms'); return false;"
                class="btn btn-primary"/>
         <input type="button" value="Manage carts"
-               onclick="window.location.replace('http://localhost:8080/JavaClub5_team2_war_exploded/carts'); return false;"
+               onclick="window.location.replace('http://localhost:8080/carts'); return false;"
                class="btn btn-primary"/> <br/>
         <br/>
         <input type="button" value="Book statistic"
-               onclick="window.location.replace('http://localhost:8080/JavaClub5_team2_war_exploded/books/stat'); return false;"
+               onclick="window.location.replace('http://localhost:8080/book/stat'); return false;"
                class="btn btn-primary"/>
         <input type="button" value="Reader statistic"
-               onclick="window.location.replace('http://localhost:8080/JavaClub5_team2_war_exploded/readers'); return false;"
+               onclick="window.location.replace('http://localhost:8080/readers'); return false;"
                class="btn btn-primary"/>
         <input type="button" value="Library statistics"
-               onclick="window.location.replace('http://localhost:8080/JavaClub5_team2_war_exploded/readers/stat'); return false;"
+               onclick="window.location.replace('http://localhost:8080/readers/stat'); return false;"
                class="btn btn-primary"/>
         <br/><br/>
         <div class="panel panel-info">
@@ -62,7 +65,7 @@
 
                     <c:forEach var="tempBook" items="${books}">
 
-                        <c:url var="updateLink" value="updateForm">
+                        <c:url var="updateLink" value="/book/updateForm">
                             <c:param name="bookID"
                                      value="${tempBook.id}"/>
                         </c:url>
@@ -86,7 +89,7 @@
 
                                 <a href="${updateLink}">Update</a> | <a href="${takeLink}">Delete copy</a> | <a
                                     href="${deleteLink}"
-                                    onclick="if (!(confirm('Are you sure you want to delete this book?'))) return false">Delete</a>
+                                    onclick="if (!(confirm('Are you sure you want to delete this fucking book?'))) return false">Delete</a>
                             </td>
                         </tr>
                     </c:forEach>

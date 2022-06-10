@@ -66,7 +66,7 @@
                     </c:forEach>
                 </table>
                 <input type="button" value="back" style="margin-left: 14.88vw"
-                       onclick="window.location.replace('http://localhost:8080/JavaClub5_team2_war_exploded/books'); return false;"
+                       onclick="window.location.replace('http://localhost:8080/books'); return false;"
                        class="btn btn-primary"/> <br/>
             </div>
             <br/>

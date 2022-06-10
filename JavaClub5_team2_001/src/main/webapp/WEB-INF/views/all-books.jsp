@@ -20,16 +20,19 @@
         <hr/>
 
         <input type="button" value="My books"
-               onclick="window.location.replace('http://localhost:8080/JavaClub5_team2_war_exploded/books/my'); return false;"
+               onclick="window.location.replace('http://localhost:8080/books/my/'); return false;"
                class="btn btn-primary"/>
         <input type="button" value="My carts"
-               onclick="window.location.replace('http://localhost:8080/JavaClub5_team2_war_exploded/carts/my'); return false;"
+               onclick="window.location.replace('http://localhost:8080/cart/my'); return false;"
                class="btn btn-primary"/>
         <input type="button" value="My forms"
-               onclick="window.location.replace('http://localhost:8080/JavaClub5_team2_war_exploded/forms/my'); return false;"
-               class="btn btn-primary"/> <br/><br/>
+               onclick="window.location.replace('http://localhost:8080/form/my'); return false;"
+               class="btn btn-primary"/>
+        <input type="button" value="Log out" style="margin-left:42vw"
+               onclick="window.location.replace('http://localhost:8080/logout'); return false;"
+               class="btn btn-primary"/><br/><br/>
         <input type="button" value="Filter"
-               onclick="window.location.replace('http://localhost:8080/JavaClub5_team2_war_exploded/books/filter'); return false;"
+               onclick="window.location.replace('http://localhost:8080/books/filter'); return false;"
                class="btn btn-primary"/> <br/>
         <br/>
         <div class="panel panel-info">
@@ -57,11 +60,8 @@
                             <%  %>
                         </c:if>
                         <c:if test="${tempBook.count<1}">
-
-                            <a href="${takeLink}" value="Take" onclick="if (confirm('Sorry book is currently unavailable. Choose another or wait!')) {<c:url var="takeLink" value=""></c:url>;} </a>
-                            <input type="submit" value="delete" onclick="if (confirm('Are you sure you want to delete?')) { form.action='/Config?pg=FIBiller&amp;cmd=delete'; } else { return false; }" />
-
-<%--                           <% "Sorry book is currently unavailable. Choose another or wait!"; %>--%>
+                            <c:url var="takeLink" value=""></c:url>
+<%--                            <% "Sorry book is currently unavailable. Choose another or wait!"; %>--%>
                         </c:if>
                         <tr>
                             <td>${tempBook.bookName}</td>

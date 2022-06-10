@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 
 import com.softserve.entity.User;
 
+import java.util.List;
+
 @Repository
 public class UserDaoImpl implements UserDao {
 
@@ -18,7 +20,7 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public User findByUserEmail(String userEmail) {
 		Session currentSession = sessionFactory.getCurrentSession();
-		Query theQuery = currentSession.createSQLQuery("SELECT * FROM User u where u.Email=:uEmail").addEntity(User.class);
+		Query theQuery = currentSession.createQuery("select u from User u where u.email =:uEmail", User.class);
 		theQuery.setParameter("uEmail", userEmail);
 
 		User theUser;
@@ -34,6 +36,12 @@ public class UserDaoImpl implements UserDao {
 	public void save(User theUser) {
 		Session currentSession = sessionFactory.getCurrentSession();
 		currentSession.saveOrUpdate(theUser);
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<User> getAll() {
+		return (List<User>) sessionFactory.getCurrentSession().createSQLQuery("select * from user").addEntity(User.class).getResultList();
 	}
 
 }

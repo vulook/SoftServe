@@ -19,11 +19,11 @@ public class RoleDaoImpl implements RoleDao {
 	public UserRole findRoleByName(String theRoleName) {
 
 		Session currentSession = sessionFactory.getCurrentSession();
-		Query theQuery = currentSession.createSQLQuery("SELECT * FROM userrole r where r.Role=:roleName").addEntity(UserRole.class);
+		Query theQuery = currentSession.createQuery("SELECT r FROM UserRole r where r.role=:roleName",UserRole.class);
 		theQuery.setParameter("roleName", theRoleName);
-		
+
 		UserRole theRole;
-		
+
 		try {
 			theRole = (UserRole) theQuery.getSingleResult();
 		} catch (Exception e) {

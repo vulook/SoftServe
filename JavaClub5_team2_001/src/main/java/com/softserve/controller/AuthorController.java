@@ -1,5 +1,6 @@
 package com.softserve.controller;
 
+import com.softserve.service.AuthorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import com.softserve.entity.Author;
-import com.softserve.service.AuthorService;
 
 import java.util.List;
 
@@ -21,6 +21,7 @@ public class AuthorController {
     @Autowired
     private AuthorService authorService;
 
+    // show all authors
     @GetMapping("/list")
     public String listAuthors(Model theModel) {
         LOG.debug("Show Books handler method");
@@ -29,14 +30,7 @@ public class AuthorController {
         return "list-authors";
     }
 
-//    @GetMapping("/showForm")
-//    public String showFormForAdd(Model theModel) {
-//        LOG.debug("Inside show book-form handler method");
-//        Author theAuthor = new Author();
-//        theModel.addAttribute("author", theAuthor);
-//        return "author-form";
-//    }
-
+    // updates author from form
     @PostMapping("/saveAuthor")
     public String saveAuthor(@ModelAttribute("author") Author theAuthor) {
         LOG.debug("Save Book handler method");
@@ -44,6 +38,7 @@ public class AuthorController {
         return "redirect:/author/list";
     }
 
+    // show update form
     @GetMapping("/updateForm")
     public String showFormForUpdate(@RequestParam("authorID") long theId,
                                     Model theModel) {
@@ -53,6 +48,7 @@ public class AuthorController {
         return "author-form";
     }
 
+    //deletes author by id
     @GetMapping("/delete/{id}")
     public String deleteAuthor(@PathVariable long id) {
         LOG.debug("Delete Book handler method");

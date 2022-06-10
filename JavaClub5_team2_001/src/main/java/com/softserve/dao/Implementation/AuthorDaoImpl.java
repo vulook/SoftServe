@@ -21,7 +21,10 @@ public class AuthorDaoImpl implements AuthorDao {
     @Override
     @SuppressWarnings("unchecked")
     public List<Author> getAll() {
-        return sessionFactory.getCurrentSession().createQuery("from Author").getResultList();
+        return sessionFactory
+                .getCurrentSession()
+                .createQuery("from Author")
+                .getResultList();
     }
 
     @Override
@@ -33,7 +36,9 @@ public class AuthorDaoImpl implements AuthorDao {
     @Override
     public Author delete(long id) {
         Author author = getByID(id);
-        Query query = sessionFactory.getCurrentSession().createSQLQuery("call deleteAuthor(:id)");
+        Query query = sessionFactory
+                .getCurrentSession()
+                .createSQLQuery("call deleteAuthor(:id)");
         query.setParameter("id", id);
         query.executeUpdate();
         return author;

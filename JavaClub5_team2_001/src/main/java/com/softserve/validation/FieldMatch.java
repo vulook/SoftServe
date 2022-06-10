@@ -5,7 +5,7 @@ import javax.validation.Payload;
 
 import java.lang.annotation.*;
 
-import com.softserve.validation.ValidationForm;
+import com.softserve.validation.UserValidator;
 
 @Constraint(validatedBy = FieldMatchValidator.class)
 @Target({ ElementType.TYPE, ElementType.ANNOTATION_TYPE })

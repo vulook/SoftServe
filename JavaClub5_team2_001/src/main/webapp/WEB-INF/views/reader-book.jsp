@@ -34,8 +34,9 @@
 
                     <c:forEach var="tempBook" items="${reading}">
 
-                        <c:url var="updateLink" value="/book/info/${tempBook.id}"></c:url>
-
+                        <c:url var="updateLink" value="/book/info">
+                            <c:param name="bookID" value="${tempBook.id}"/>
+                        </c:url>
                         <tr>
                             <td>${tempBook.bookName}</td>
                             <td>${tempBook.mainAuthor.firstName} ${tempBook.mainAuthor.lastName}</td>
@@ -64,8 +65,9 @@
                     </tr>
 
                     <c:forEach var="tempBook" items="${books}">
-                        <c:url var="updateLink" value="/book/info/${tempBook.id}"></c:url>
-
+                        <c:url var="updateLink" value="/book/info">
+                            <c:param name="bookID" value="${tempBook.id}"/>
+                        </c:url>
 
 <%--                        <c:url var="updateLink" value="/books/info">--%>
 <%--                            <c:param name="bookID" value="${tempBook.key.id}"/>--%>
@@ -89,7 +91,7 @@
 
                 </table>
                 <input type="button" value="back" style="margin-left: 14.88vw"
-                       onclick="window.location.replace('http://localhost:8080/JavaClub5_team2_war_exploded/readers'); return false;"
+                       onclick="window.location.replace('http://localhost:8080/readers'); return false;"
                        class="btn btn-primary"/> <br/>
             </div>
         </div>

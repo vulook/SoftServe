@@ -35,10 +35,12 @@ public class User {
     private UserRole role;
 
     @Setter(AccessLevel.PRIVATE)
+    @Cascade({CascadeType.ALL})
     @OneToMany(mappedBy = "CartUser")
     private List<Cart> cartList = new LinkedList<>();
 
     @Setter(AccessLevel.PRIVATE)
+    @Cascade({CascadeType.ALL})
     @OneToMany(mappedBy = "FormUser")
     private List<Form> formList = new LinkedList<>();
 

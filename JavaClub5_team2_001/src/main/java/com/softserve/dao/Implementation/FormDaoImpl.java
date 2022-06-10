@@ -21,13 +21,18 @@ public class FormDaoImpl implements FormDao {
 
     @Override
     @SuppressWarnings("unchecked")
-    public List<Form> getAllByUser() {
+    public List<Form> getAllByUser(Long id) {
         User user = new User();
         List<Form> formList = new ArrayList<>();
-        Query query = sessionFactory.getCurrentSession().createSQLQuery("call getID()").addEntity(User.class);
+        Query query = sessionFactory
+                .getCurrentSession()
+                .createSQLQuery("call getID()")
+                .addEntity(User.class);
         user = (User) query.getResultList().stream().findFirst().orElse(null);
         if (user != null) {
-            Query query1 = sessionFactory.getCurrentSession().createQuery("select c from Form c where c.FormUser.id=:id", Form.class);
+            Query query1 = sessionFactory
+                    .getCurrentSession()
+                    .createQuery("select c from Form c where c.FormUser.id=:id", Form.class);
             query1.setParameter("id", user.getId());
             formList = query1.getResultList();
         }
@@ -37,7 +42,10 @@ public class FormDaoImpl implements FormDao {
     @Override
     @SuppressWarnings("unchecked")
     public List<Form> getAll() {
-        return sessionFactory.getCurrentSession().createQuery("select f from Form f").getResultList();
+        return sessionFactory
+                .getCurrentSession()
+                .createQuery("select f from Form f")
+                .getResultList();
     }
 
     @Override
@@ -49,7 +57,9 @@ public class FormDaoImpl implements FormDao {
     @Override
     public Form delete(long id) {
         Form form = getByID(id);
-        Query query = sessionFactory.getCurrentSession().createSQLQuery("delete from Form where id=:id");
+        Query query = sessionFactory
+                .getCurrentSession()
+                .createSQLQuery("delete from Form where id=:id");
         query.setParameter("id", id);
         query.executeUpdate();
         return form;
@@ -62,7 +72,9 @@ public class FormDaoImpl implements FormDao {
 
     @Override
     public void confirmRequest(String book, long userID, long cartId) {
-        Query query = sessionFactory.getCurrentSession().createSQLQuery("CALL RequestNeededBook(:book,:user,:cart)");
+        Query query = sessionFactory
+                .getCurrentSession()
+                .createSQLQuery("CALL RequestNeededBook(:book,:user,:cart)");
         query.setParameter("book", book);
         query.setParameter("user", userID);
         query.setParameter("cart", cartId);
@@ -70,7 +82,9 @@ public class FormDaoImpl implements FormDao {
     }
     @Override
     public void confirmReturn(long book, long userID) {
-        Query query = sessionFactory.getCurrentSession().createSQLQuery("CALL ConfirmReturn(:book,:user)");
+        Query query = sessionFactory
+                .getCurrentSession()
+                .createSQLQuery("CALL ConfirmReturn(:book,:user)");
         query.setParameter("book", book);
         query.setParameter("user", userID);
         query.executeUpdate();

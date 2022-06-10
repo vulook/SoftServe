@@ -1,12 +1,13 @@
 package com.softserve.dao;
 
 import com.softserve.entity.Form;
+import com.softserve.exceptions.ResourceNotFoundException;
 
 import java.util.List;
 
 public interface FormDao {
 
-    List<Form> getAllByUser();
+    List<Form> getAllByUser(Long id);
 
     List<Form> getAll();
 

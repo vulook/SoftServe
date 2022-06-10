@@ -1,9 +1,11 @@
 package com.softserve.entity;
 
 import lombok.*;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.springframework.data.annotation.ReadOnlyProperty;
+
 
 import javax.persistence.*;
 import java.util.*;
@@ -21,9 +23,7 @@ public class Book {
     @GeneratedValue
     private long id;
     private String bookName;
-    private String author;
     private String genre;
-    private long authorId;
     private int count;
     private int pageCount;
     private Integer ratings;

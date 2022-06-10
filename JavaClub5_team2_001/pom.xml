@@ -85,6 +85,11 @@
       <artifactId>spring-security-taglibs</artifactId>
       <version>${springsecurity.version}</version>
     </dependency>
+    <dependency>
+      <groupId>org.passay</groupId>
+      <artifactId>passay</artifactId>
+      <version>1.6.1</version>
+    </dependency>
 
     <!-- Hibernate -->
     <dependency>
@@ -126,6 +131,7 @@
       <artifactId>standard</artifactId>
       <version>${tld.version}</version>
     </dependency>
+
     <!-- Servlet Dependency -->
     <dependency>
       <groupId>javax.servlet</groupId>
@@ -133,6 +139,7 @@
       <version>${servlets.version}</version>
       <scope>provided</scope>
     </dependency>
+
     <!-- JSP Dependency -->
     <dependency>
       <groupId>javax.servlet.jsp</groupId>
@@ -172,7 +179,7 @@
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>jcl-over-slf4j</artifactId>
-      <version>1.7.35</version>
+      <version>1.7.36</version>
     </dependency>
     <dependency>
       <groupId>ch.qos.logback</groupId>
@@ -200,6 +207,19 @@
       <artifactId>cassandra-all</artifactId>
       <version>3.11.10</version>
     </dependency>
+
+    <!-- Email -->
+    <dependency>
+      <groupId>com.sun.mail</groupId>
+      <artifactId>javax.mail</artifactId>
+      <version>1.6.2</version>
+    </dependency>
+    <dependency>
+      <groupId>com.sun.mail</groupId>
+      <artifactId>smtp</artifactId>
+      <version>2.0.1</version>
+    </dependency>
+
     </dependencies>
 
 
